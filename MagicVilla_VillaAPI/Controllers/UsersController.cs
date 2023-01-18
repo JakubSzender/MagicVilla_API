@@ -25,8 +25,8 @@ namespace MagicVilla_VillaAPI.Controllers
             if (loginResponse.User == null || string.IsNullOrEmpty(loginResponse.Token)) 
             {
                 _response.StatusCode = HttpStatusCode.BadRequest;
-                _response.IsSuccess= false;
-                _response.ErrorMessagges.Add("Username or password is incorrect");
+                _response.IsSuccess = false;
+                _response.ErrorMessages.Add("Username or password is incorrect");
                 return BadRequest(_response);
             }
              _response.StatusCode = HttpStatusCode.OK;
@@ -44,7 +44,7 @@ namespace MagicVilla_VillaAPI.Controllers
             {
                 _response.StatusCode = HttpStatusCode.BadRequest;
                 _response.IsSuccess = false;
-                _response.ErrorMessagges.Add("Username already exists");
+                _response.ErrorMessages.Add("Username already exists");
                 return BadRequest(_response);
             }
             var user = await _userRepo.Register(model);
@@ -52,7 +52,7 @@ namespace MagicVilla_VillaAPI.Controllers
             {
                 _response.StatusCode = HttpStatusCode.BadRequest;
                 _response.IsSuccess = false;
-                _response.ErrorMessagges.Add("Error while registering");
+                _response.ErrorMessages.Add("Error while registering");
                 return BadRequest(_response);
             }
             _response.StatusCode= HttpStatusCode.OK;
