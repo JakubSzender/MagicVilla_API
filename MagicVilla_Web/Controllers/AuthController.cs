@@ -15,7 +15,7 @@ namespace MagicVilla_Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Login()
         {
             LoginRequestDTO obj = new();
             return View(obj);
