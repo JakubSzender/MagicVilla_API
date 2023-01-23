@@ -190,7 +190,7 @@ namespace MagicVilla_VillaAPI.Controllers
             }
             return _response;
         }
-        [Authorize(Roles = "admin")]
+        
         [HttpPatch("{id:int}", Name = "UpdatePartialVilla")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

@@ -49,7 +49,7 @@ namespace MagicVilla_VillaAPI.Controllers
 
             }
 
-          
+            [HttpGet("{id:int}", Name = "GetVillaNumber")]
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]
             [ProducesResponseType(StatusCodes.Status400BadRequest)]
