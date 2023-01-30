@@ -71,12 +71,14 @@ namespace MagicVilla_VillaAPI.Controllers.v1
                 if (id == 0)
                 {
                     _response.StatusCode = HttpStatusCode.BadRequest;
+                    _response.IsSuccess = false;
                     return BadRequest(_response);
                 }
                 var villaNumber = await _dbVillaNumber.GetAsync(u => u.VillaNo == id);
                 if (villaNumber == null)
                 {
                     _response.StatusCode = HttpStatusCode.NotFound;
+                    _response.IsSuccess = false;
                     return NotFound(_response);
                 }
                 _response.Result = _mapper.Map<VillaNumberDTO>(villaNumber);
@@ -104,12 +106,14 @@ namespace MagicVilla_VillaAPI.Controllers.v1
                 if (await _dbVillaNumber.GetAsync(u => u.VillaNo == createDTO.VillaNo) != null)
                 {
                     ModelState.AddModelError("ErrorMessages", "Villa Number already Exists!");
+                    _response.IsSuccess = false;
                     return BadRequest(ModelState);
                 }
 
                 if (await _dbVilla.GetAsync(u => u.Id == createDTO.VillaID) == null)
                 {
                     ModelState.AddModelError("ErrorMessages", "Villa ID is invalid!");
+                    _response.IsSuccess = false;
                     return BadRequest(ModelState);
                 }
 
@@ -147,11 +151,13 @@ namespace MagicVilla_VillaAPI.Controllers.v1
             {
                 if (id == 0)
                 {
+                    _response.IsSuccess = false;
                     return BadRequest();
                 }
                 var villaNumber = await _dbVillaNumber.GetAsync(u => u.VillaNo == id);
                 if (villaNumber == null)
                 {
+                    _response.IsSuccess = false;
                     return NotFound();
                 }
                 await _dbVillaNumber.RemoveAsync(villaNumber);
@@ -179,11 +185,13 @@ namespace MagicVilla_VillaAPI.Controllers.v1
             {
                 if (updateDTO == null || id != updateDTO.VillaNo)
                 {
+                    _response.IsSuccess = false;
                     return BadRequest();
                 }
                 if (await _dbVilla.GetAsync(u => u.Id == updateDTO.VillaID) == null)
                 {
                     ModelState.AddModelError("ErrorMessages", "Villa ID is invalid!");
+                    _response.IsSuccess = false;
                     return BadRequest(ModelState);
                 }
 
