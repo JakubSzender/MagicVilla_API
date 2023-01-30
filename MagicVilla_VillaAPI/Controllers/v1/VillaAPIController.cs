@@ -36,7 +36,7 @@ namespace MagicVilla_VillaAPI.Controllers.v1
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<APIResponse>> GetVillas([FromQuery(Name="filterOccupancy")] int? occupancy,
-           [FromQuery(Name = "Search")] string? search)
+           [FromQuery(Name = "Search")] string? search, int pageSize = 3, int pageNumber = 1)
         {
             try
             {
@@ -44,11 +44,13 @@ namespace MagicVilla_VillaAPI.Controllers.v1
 
                 if(occupancy > 0)
                 {
-                    villaList = await _dbVilla.GetAllAsync(u => u.Occupancy == occupancy);
+                    villaList = await _dbVilla.GetAllAsync(u => u.Occupancy == occupancy, pageSize:pageSize,
+                        pageNumber:pageNumber);
                 }
                 else
                 {
-                    villaList = await _dbVilla.GetAllAsync();
+                    villaList = await _dbVilla.GetAllAsync(pageSize: pageSize,
+                        pageNumber: pageNumber);
 
                 }
                 if(!string.IsNullOrEmpty(search)) 
