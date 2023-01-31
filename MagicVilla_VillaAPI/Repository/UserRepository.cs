@@ -15,15 +15,17 @@ namespace MagicVilla_VillaAPI.Repository
     {
         private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private string secretKey;
         private readonly IMapper _mapper;
         public UserRepository(ApplicationDbContext db, IConfiguration configuration,
-           UserManager<ApplicationUser> userManager, IMapper mapper)
+           UserManager<ApplicationUser> userManager,IMapper mapper, RoleManager<IdentityRole> roleManager)
         {
             _db = db;
             _mapper = mapper;
             _userManager = userManager;
             secretKey = configuration.GetValue<string>("ApiSettings:Secret");
+            _roleManager = roleManager;
         }
 
         public bool isUniqueUser(string username)
@@ -62,7 +64,7 @@ namespace MagicVilla_VillaAPI.Repository
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user.Id.ToString()),
+                    new Claim(ClaimTypes.Name, user.UserName.ToString()),
                     new Claim(ClaimTypes.Role, roles.FirstOrDefault())
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
@@ -95,6 +97,11 @@ namespace MagicVilla_VillaAPI.Repository
                 var result = await _userManager.CreateAsync(user, registrationRequestDTO.Password);
                 if(result.Succeeded)
                 {
+                    if(!_roleManager.RoleExistsAsync("admin").GetAwaiter().GetResult())
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole("admin"));
+                        await _roleManager.CreateAsync(new IdentityRole("customer"));
+                    }
                     await _userManager.AddToRoleAsync(user, "admin");
                     var userToReturn = _db.ApplicationUsers
                         .FirstOrDefault(u => u.UserName == registrationRequestDTO.UserName);

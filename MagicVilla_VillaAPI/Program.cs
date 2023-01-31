@@ -105,7 +105,7 @@ builder.Services.AddSwaggerGen(options =>
     {
         Version = "v1.0",
         Title = "Magic Villa V1",
-        Description = "API to managge Villa",
+        Description = "API to manage Villa",
         TermsOfService = new Uri("https://example.com/terms"),
         License = new OpenApiLicense
         {
@@ -117,7 +117,7 @@ builder.Services.AddSwaggerGen(options =>
     {
         Version = "v2.0",
         Title = "Magic Villa V2",
-        Description = "API to managge Villa",
+        Description = "API to manage Villa",
         TermsOfService = new Uri("https://example.com/terms"),
         License = new OpenApiLicense
         {
