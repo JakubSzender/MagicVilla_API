@@ -39,7 +39,8 @@ namespace MagicVilla_VillaAPI.Repository
 
         public async Task<LoginResponseDTO> Login(LoginRequestDTO loginRequestDTO)
         {
-           var user = _db.ApplicationUsers.FirstOrDefault(u => u.UserName.ToLower() == loginRequestDTO.UserName.ToLower());
+           var user = _db.ApplicationUsers
+                .FirstOrDefault(u => u.UserName.ToLower() == loginRequestDTO.UserName.ToLower());
 
             bool isValid = await _userManager.CheckPasswordAsync(user, loginRequestDTO.Password);
 
@@ -61,8 +62,8 @@ namespace MagicVilla_VillaAPI.Repository
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name,user.Id.ToString()),
-                    new Claim(ClaimTypes.Role,roles.FirstOrDefault())
+                    new Claim(ClaimTypes.Name, user.Id.ToString()),
+                    new Claim(ClaimTypes.Role, roles.FirstOrDefault())
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -86,9 +87,9 @@ namespace MagicVilla_VillaAPI.Repository
                 UserName = registrationRequestDTO.UserName,
                 Email = registrationRequestDTO.UserName,
                 NormalizedEmail = registrationRequestDTO.UserName.ToUpper(),
-                Name = registrationRequestDTO.Name,
-                
+                Name = registrationRequestDTO.Name
             };
+
             try
             {
                 var result = await _userManager.CreateAsync(user, registrationRequestDTO.Password);
@@ -96,11 +97,11 @@ namespace MagicVilla_VillaAPI.Repository
                 {
                     await _userManager.AddToRoleAsync(user, "admin");
                     var userToReturn = _db.ApplicationUsers
-                        .FirstOrDefault(u => u.UserName== registrationRequestDTO.UserName);
+                        .FirstOrDefault(u => u.UserName == registrationRequestDTO.UserName);
                     return _mapper.Map<UserDTO>(userToReturn);
                 }
             }
-            catch (Exception ex) 
+            catch (Exception e) 
             {
 
             }
