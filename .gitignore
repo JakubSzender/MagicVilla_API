@@ -361,3 +361,10 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# MyIgnores
+MagicVilla_VillaAPI/.config/
+MagicVilla_VillaAPI/Properties/ServiceDependencies/
+MagicVilla_Web/.config/
+MagicVilla_Web/Properties/ServiceDependencies/
+MagicVilla_VillaAPI/appsettings.json
