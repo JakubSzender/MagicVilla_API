@@ -10,12 +10,12 @@ As default registered user is assigned to group "customer". When you get "admin"
 ### Built With
 
 FrontEnd:
-*AspNetCore.Mvc;
+AspNetCore.Mvc;
 
 Backend:
-*AspNetCore.Identity;
-*EntityFrameworkCore;
-*SQL
+AspNetCore.Identity;
+EntityFrameworkCore;
+SQL
 
 
  
