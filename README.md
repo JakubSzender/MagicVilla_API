@@ -1,6 +1,6 @@
 # MagicVilla
 
-I wrote this app to understand what REST API is.
+I wrote this application during the course. The course was about REST API in .NET 7
 
 ## Description
 
