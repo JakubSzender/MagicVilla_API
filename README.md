@@ -31,7 +31,4 @@ Clone the repo
    git clone (https://github.com/JakubSzender/MagicVilla_API.git)
    ```
 
-### Try it
 
-Here you have link to test app
-https://magicvillaaweb.azurewebsites.net/
